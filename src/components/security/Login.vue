@@ -32,6 +32,8 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         name: "Login",
         data() {
@@ -43,7 +45,39 @@
         },
         methods: {
             login() {
-
+                axios
+                    .post('http://bookshop.localhost/login', {
+                        email: this.email,
+                        password: this.password
+                    })
+                    .then(response => {
+                        console.log('login');
+                        let token = response.data.token;
+                        localStorage.setItem('token', token);
+                        console.log(response);
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                        this.getTaches();
+                    }).catch(error => {
+                    console.log('error');
+                    console.log(error.response.data);
+                    }).finally(() => {
+                    this.isLoading = false;
+                })
+            },
+            getTaches() {
+                //let token = localStorage.getItem('token');
+                axios
+                    //.get('http://bookshop.localhost/api/taches', {headers: { Authorization: `Bearer ${token}` }})
+                    .get('http://bookshop.localhost/api/taches')
+                    .then(response => {
+                        console.log('get taches');
+                        console.log(response);
+                    }).catch(error => {
+                    console.log('error');
+                    console.log(error.response.data);
+                }).finally(() => {
+                    this.isLoading = false;
+                })
             }
         }
     }
