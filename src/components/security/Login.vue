@@ -46,7 +46,8 @@
         methods: {
             login() {
                 axios
-                    .post('http://bookshop.localhost/login', {
+                    //.post('http://bookshop.localhost/login', {
+                    .post('https://guarded-shelf-22690.herokuapp.com    /login', {
                         email: this.email,
                         password: this.password
                     })
