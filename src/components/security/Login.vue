@@ -69,7 +69,7 @@
                 //let token = localStorage.getItem('token');
                 axios
                     //.get('http://bookshop.localhost/api/taches', {headers: { Authorization: `Bearer ${token}` }})
-                    .get('http://bookshop.localhost/api/taches')
+                    .get('https://guarded-shelf-22690.herokuapp.com/')
                     .then(response => {
                         console.log('get taches');
                         console.log(response);
