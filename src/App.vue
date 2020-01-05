@@ -32,7 +32,7 @@
   import Breadcrumb from './components/Breadcrumb';
   import Snackbar from './components/Snackbar';
 
-  import axios from 'axios';
+  //import axios from 'axios';
 
   export default {
     components: {

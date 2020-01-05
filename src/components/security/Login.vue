@@ -47,7 +47,7 @@
             login() {
                 axios
                     //.post('http://bookshop.localhost/login', {
-                    .post('https://guarded-shelf-22690.herokuapp.com    /login', {
+                    .post('https://guarded-shelf-22690.herokuapp.com/login', {
                         email: this.email,
                         password: this.password
                     })
@@ -60,7 +60,7 @@
                         this.getTaches();
                     }).catch(error => {
                     console.log('error');
-                    console.log(error.response.data);
+                    console.log(error);
                     }).finally(() => {
                     this.isLoading = false;
                 })
