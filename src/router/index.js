@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Home from '../components/home/Home';
 import userRoutes from './user';
 import tacheRoutes from './tache';
 import usertacheRoutes from './usertache';
@@ -11,6 +12,11 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
+        {
+            path: '/home',
+            name: 'home',
+            component: Home
+        },
         userRoutes,
         tacheRoutes,
         usertacheRoutes,
@@ -19,8 +25,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (!store.getters.isAuthenticated && to.name != 'login') next('/login')
-    else next()
+    console.log('coucou');
+    if (!store.getters.isAuthenticated && to.name != 'login') {
+        console.log('ici');
+        next('/login')
+    } else {
+        console.log('la');
+        next()
+    }
 });
 
 export default router;

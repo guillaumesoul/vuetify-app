@@ -33,6 +33,7 @@
 
 <script>
     import axios from 'axios';
+    import { BACKEND_URL } from '../../config/entrypoint';
 
     export default {
         name: "Login",
@@ -46,18 +47,17 @@
         methods: {
             login() {
                 axios
-                    //.post('http://bookshop.localhost/login', {
-                    .post('https://guarded-shelf-22690.herokuapp.com/login', {
+                    .post(BACKEND_URL+'login', {
                         email: this.email,
                         password: this.password
                     })
                     .then(response => {
-                        console.log('login');
                         let token = response.data.token;
                         localStorage.setItem('token', token);
-                        console.log(response);
                         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                        this.getTaches();
+                        //this.getTaches();
+                        //console.log(this.$router);;
+                        this.$router.push({name: 'home'});
                     }).catch(error => {
                     console.log('error');
                     console.log(error);
@@ -67,9 +67,11 @@
             },
             getTaches() {
                 //let token = localStorage.getItem('token');
+                console.log('gettaches');
                 axios
                     //.get('http://bookshop.localhost/api/taches', {headers: { Authorization: `Bearer ${token}` }})
-                    .get('https://guarded-shelf-22690.herokuapp.com/')
+                    .get(BACKEND_URL+'taches')
+                    //.get('https://guarded-shelf-22690.herokuapp.com/')
                     .then(response => {
                         console.log('get taches');
                         console.log(response);
