@@ -35,6 +35,8 @@
     import axios from 'axios';
     import { BACKEND_URL } from '../../config/entrypoint';
 
+    const AUTH_REQUEST = "AUTH_REQUEST";
+
     export default {
         name: "Login",
         data() {
@@ -46,7 +48,7 @@
         },
         methods: {
             login() {
-                axios
+                /*axios
                     .post(BACKEND_URL+'login', {
                         email: this.email,
                         password: this.password
@@ -63,6 +65,10 @@
                     console.log(error);
                     }).finally(() => {
                     this.isLoading = false;
+                })*/
+                const { email, password } = this;
+                this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
+                    this.$router.push('/')
                 })
             },
             getTaches() {

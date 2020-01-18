@@ -27,10 +27,8 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     console.log('coucou');
     if (!store.getters.isAuthenticated && to.name != 'login') {
-        console.log('ici');
         next('/login')
     } else {
-        console.log('la');
         next()
     }
 });
