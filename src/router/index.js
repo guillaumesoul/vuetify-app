@@ -13,7 +13,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/home',
+            path: '/',
             name: 'home',
             component: Home
         },
@@ -25,7 +25,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log('coucou');
     if (!store.getters.isAuthenticated && to.name != 'login') {
         next('/login')
     } else {

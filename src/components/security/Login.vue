@@ -8,7 +8,7 @@
             label="Email"
             :rules="[
                 v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                v => /.+@.+\..+/.test(v) || 'E-mail non valide',
               ]"
             required
         >
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import { BACKEND_URL } from '../../config/entrypoint';
 
     const AUTH_REQUEST = "AUTH_REQUEST";
 
@@ -48,46 +46,11 @@
         },
         methods: {
             login() {
-                /*axios
-                    .post(BACKEND_URL+'login', {
-                        email: this.email,
-                        password: this.password
-                    })
-                    .then(response => {
-                        let token = response.data.token;
-                        localStorage.setItem('token', token);
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                        //this.getTaches();
-                        //console.log(this.$router);;
-                        this.$router.push({name: 'home'});
-                    }).catch(error => {
-                    console.log('error');
-                    console.log(error);
-                    }).finally(() => {
-                    this.isLoading = false;
-                })*/
                 const { email, password } = this;
                 this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
                     this.$router.push('/')
                 })
             },
-            getTaches() {
-                //let token = localStorage.getItem('token');
-                console.log('gettaches');
-                axios
-                    //.get('http://bookshop.localhost/api/taches', {headers: { Authorization: `Bearer ${token}` }})
-                    .get(BACKEND_URL+'taches')
-                    //.get('https://guarded-shelf-22690.herokuapp.com/')
-                    .then(response => {
-                        console.log('get taches');
-                        console.log(response);
-                    }).catch(error => {
-                    console.log('error');
-                    console.log(error.response.data);
-                }).finally(() => {
-                    this.isLoading = false;
-                })
-            }
         }
     }
 </script>

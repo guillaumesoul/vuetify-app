@@ -3,8 +3,6 @@ const AUTH_SUCCESS = "AUTH_SUCCESS";
 const AUTH_ERROR = "AUTH_ERROR";
 const AUTH_LOGOUT = "AUTH_LOGOUT";
 const USER_REQUEST = "USER_REQUEST";
-//const USER_SUCCESS = "USER_SUCCESS";
-//const USER_ERROR = "USER_ERROR";
 
 import axios from 'axios';
 import { BACKEND_URL } from '../../config/entrypoint';
@@ -30,6 +28,9 @@ export default {
     [AUTH_ERROR]: (state) => {
       state.status = 'error'
     },
+    [AUTH_LOGOUT]: (state) => {
+      state.token = ''
+    },
   },
   actions: {
     [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
@@ -44,7 +45,7 @@ export default {
               localStorage.setItem("user-token", resp.token);
               // Here set the header of your ajax library to the token value.
               commit(AUTH_SUCCESS, resp);
-              dispatch(USER_REQUEST);
+              //dispatch(USER_REQUEST);
               resolve(resp);
             })
             .catch(err => {

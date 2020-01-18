@@ -15,16 +15,15 @@
     </v-navigation-drawer>
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>YOLO</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-icon @click="logout">mdi-logout</v-icon>
     </v-app-bar>
 
     <v-content>
       <Breadcrumb layout-class="pl-3 py-3" />
       <router-view></router-view>
     </v-content>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2019</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -32,7 +31,7 @@
   import Breadcrumb from './components/Breadcrumb';
   import Snackbar from './components/Snackbar';
 
-  //import axios from 'axios';
+  const AUTH_LOGOUT = "AUTH_LOGOUT";
 
   export default {
     components: {
@@ -46,6 +45,12 @@
     created() {
     },
     methods: {
+      logout: function () {
+        this.$store.dispatch(AUTH_LOGOUT)
+        .then(() => {
+          this.$router.push('/login')
+        })
+      }
     }
 
   };
