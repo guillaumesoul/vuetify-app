@@ -17,7 +17,10 @@
         <v-text-field
             v-model="password"
             label="Password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show1 ? 'text' : 'password'"
             :rules="[v => !!v || 'Password obligatoire']"
+            @click:append="show1 = !show1"
             required
         >
 
@@ -33,6 +36,9 @@
 
 <script>
 
+    import axios from 'axios'
+    import {BACKEND_URL} from "../../config/entrypoint";
+
     const AUTH_REQUEST = "AUTH_REQUEST";
 
     export default {
@@ -42,6 +48,7 @@
                 valid: true,
                 email: '',
                 password: '',
+                show1: false,
             }
         },
         methods: {

@@ -2,6 +2,7 @@ import isObject from 'lodash/isObject';
 import { ENTRYPOINT } from '../config/entrypoint';
 import SubmissionError from '../error/SubmissionError';
 import { normalize } from './hydra';
+import store from './../store';
 
 const MIME_TYPE = 'application/ld+json';
 
@@ -9,6 +10,7 @@ const makeParamArray = (key, arr) =>
   arr.map(val => `${key}[]=${val}`).join('&');
 
 export default function(id, options = {}) {
+
   if ('undefined' === typeof options.headers) options.headers = new Headers();
 
   if (null === options.headers.get('Accept'))
@@ -20,6 +22,9 @@ export default function(id, options = {}) {
     null === options.headers.get('Content-Type')
   )
     options.headers.set('Content-Type', MIME_TYPE);
+
+  if (null === options.headers.get('Authorization'))
+    options.headers.set('Authorization', "Bearer " + store.state.security.token);
 
   if (options.params) {
     let queryString = Object.keys(options.params)

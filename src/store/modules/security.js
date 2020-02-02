@@ -42,7 +42,7 @@ export default {
               password: user.password
             })
             .then(resp => {
-              localStorage.setItem("user-token", resp.token);
+              localStorage.setItem("user-token", resp.data.token);
               // Here set the header of your ajax library to the token value.
               commit(AUTH_SUCCESS, resp);
               //dispatch(USER_REQUEST);
